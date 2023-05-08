@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Projekty</title>
@@ -12,7 +12,12 @@
 
     <div th:each="project : ${projects}">
         <div class="card mt-4">
-            <h5 class="card-header" th:text="${project.name}"></h5>
+            <h5 class="card-header">
+                <span th:text="${project.name}"></span>
+                <small class="text-muted">
+                    <span th:text="|Created by ${project.creator.userRealName} on ${#dates.format(project.dateCreated, 'dd-MM-yyyy, HH:mm')}|"></span>
+                </small>
+            </h5>
 
             <div class="card-body">
                 <p class="card-text" th:text="${project.description}"></p>

@@ -15,6 +15,9 @@ public class ProjectService {
 
 
     public List<Project> findAll() {
-        return projectRepository.findAll();
+
+        return projectRepository.findAllByEnabled(true);
+
+//        return projectRepository.findAll();
     }
 }
