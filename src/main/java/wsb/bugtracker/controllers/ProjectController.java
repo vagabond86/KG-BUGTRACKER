@@ -1,6 +1,8 @@
 package wsb.bugtracker.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,9 +25,9 @@ public class ProjectController {
     final private PersonService personService;
 
     @GetMapping
-    ModelAndView index(@ModelAttribute ProjectFilter filter) {
+    ModelAndView index(@ModelAttribute ProjectFilter filter, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("projects/index");
-        List<Project> projects = projectService.findAll(filter.buildSpecification());
+        Page<Project> projects = projectService.findAll(filter.buildSpecification(), pageable);
         modelAndView.addObject("projects", projects);
         List<Person> people = personService.findAll();
         modelAndView.addObject("people", people);
