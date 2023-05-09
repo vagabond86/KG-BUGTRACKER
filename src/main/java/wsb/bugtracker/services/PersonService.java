@@ -1,0 +1,19 @@
+package wsb.bugtracker.services;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import wsb.bugtracker.models.Person;
+import wsb.bugtracker.repositories.PersonRepository;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class PersonService {
+
+    final private PersonRepository personRepository;
+
+    public List<Person> findAll(){
+        return personRepository.findAll();
+    }
+}

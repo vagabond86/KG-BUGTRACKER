@@ -12,26 +12,36 @@
 
     <form th:action="@{/projects}" class="row">
         <div class="col">
-            <input class="form-control" th:placeholder="#{projects.name}">
+            <input class="form-control"
+                   th:placeholder="#{projects.name}"/>
         </div>
 
         <div class="col">
             <select class="form-control">
-                <option th:value="${null}" th:text="#{projects.creator}"></option>
-                <!-- TODO lista osób w systemie-->
+                <option th:value="${null}"
+                        th:text="#{projects.creator}"
+                ></option>
+
+                <option th:each="person : ${people}"
+                        th:value="${person.getId()}"
+                        th:text="${person.getUserRealName()}"
+                ></option>
             </select>
         </div>
 
+
         <div class="col">
-            <input class="form-control" th:placeholder="#{common.globalSearch}">
+            <input class="form-control"
+                   th:placeholder="#{common.globalSearch}"/>
         </div>
 
         <div class="col">
-            <button type="submit" th:text="#{common.search}" class="btn btn-primary"></button>
+            <button type="submit"
+                    th:text="#{common.search}" class="btn btn-primary"
+            ></button>
         </div>
 
         <div class="col">
-            <!-- TODO: przycisk "wyczyść"-->
         </div>
 
     </form>
