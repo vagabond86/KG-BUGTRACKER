@@ -19,18 +19,15 @@ public class ProjectFilter {
     private String globalSearch;
 
     public Specification<Project> buildSpecification() {
-        Specification<Project> spec = Specification.where(null);
-        spec = spec.and(equalTo("enabled", true));
-        spec = spec.and(ilike("name", name));
-        spec = spec.and(equalTo("creator", creator));
 
-        Specification<Project> nameIlike = ilike("name", globalSearch);
-        Specification<Project> descriptionIlike = ilike("description", globalSearch);
-
-        Specification<Project> globalSearchCondition = nameIlike.or(descriptionIlike);
-        spec = spec.and(globalSearchCondition);
-
-        return spec;
+        return Specification.allOf(
+                equalTo("enabled", true),
+                ilike("name", name),
+                equalTo("creator", creator)
+        ).and(Specification.anyOf(
+                ilike("name", globalSearch),
+                ilike("description", globalSearch)
+        ));
     }
 
     private Specification<Project> equalTo(String property, Object value) {
