@@ -23,9 +23,9 @@ public class ProjectController {
     final private PersonService personService;
 
     @GetMapping
-    ModelAndView index(@ModelAttribute ProjectFilter filter){
+    ModelAndView index(@ModelAttribute ProjectFilter filter) {
         ModelAndView modelAndView = new ModelAndView("projects/index");
-        List<Project> projects = projectService.findAll();
+        List<Project> projects = projectService.findAll(filter.buildSpecification());
         modelAndView.addObject("projects", projects);
         List<Person> people = personService.findAll();
         modelAndView.addObject("people", people);
