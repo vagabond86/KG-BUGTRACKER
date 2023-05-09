@@ -19,9 +19,10 @@ public class ProjectService {
     public List<Project> findAll() {
         Specification<Project> isEnabled = ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("enabled"), true));
         Specification<Project> nameIlikeProject = (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%projekt%");
+        Specification<Project> creatorNameEqual = ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("creator").get("userRealName"), "Jan Kowalski"));
 
 
-        return projectRepository.findAll(isEnabled.and(nameIlikeProject));
+        return projectRepository.findAll(isEnabled.and(nameIlikeProject).and(creatorNameEqual));
 
 
     }

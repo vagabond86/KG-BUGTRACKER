@@ -10,6 +10,32 @@
 <div class="container">
     <h2 th:text="#{projects.index}"></h2>
 
+    <form th:action="@{/projects}" class="row">
+        <div class="col">
+            <input class="form-control" th:placeholder="#{projects.name}">
+        </div>
+
+        <div class="col">
+            <select class="form-control">
+                <option th:value="${null}" th:text="#{projects.creator}"></option>
+                <!-- TODO lista osób w systemie-->
+            </select>
+        </div>
+
+        <div class="col">
+            <input class="form-control" th:placeholder="#{common.globalSearch}">
+        </div>
+
+        <div class="col">
+            <button type="submit" th:text="#{common.search}" class="btn btn-primary"></button>
+        </div>
+
+        <div class="col">
+            <!-- TODO: przycisk "wyczyść"-->
+        </div>
+
+    </form>
+
     <div th:each="project : ${projects}">
         <div class="card mt-4">
             <h5 class="card-header">
