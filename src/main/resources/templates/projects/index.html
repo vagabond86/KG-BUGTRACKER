@@ -8,13 +8,16 @@
 <body>
 <section layout:fragment="custom-content">
 
-    <h2 th:text="#{projects.index}"></h2>
+    <h3 th:text="#{projects.index}"></h3>
 
     <div class="row mb-3">
         <div class="col">
-            <a href="/projects/create" class="btn btn-primary">Nowy projekt</a>
+                <a href="/projects/create" class="btn btn-primary">Nowy projekt</a>
+                <a href="/people" class="btn btn-primary">Lista użytkowników</a>
+                <a href="/people/create" class="btn btn-primary">Dodaj nowego użytkownika</a>
         </div>
     </div>
+
 
     <form th:action="@{/projects}" th:object="${filter}" class="row">
         <div class="col">
@@ -48,10 +51,10 @@
             <button type="submit"
                     th:text="#{common.search}" class="btn btn-primary"
             ></button>
-        </div>
 
-        <div class="col">
-            <a th:href="@{/projects}" th:text="#{common.clear}"></a>
+            <button
+            th:href="@{/projects}" th:text="#{common.clear}" class="btn btn-danger">
+            </button>
         </div>
 
     </form>
@@ -77,8 +80,6 @@
             </div>
         </div>
     </div>
-
-
 
 </section>
 </body>
