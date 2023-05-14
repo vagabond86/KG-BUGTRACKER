@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import wsb.bugtracker.models.Project;
 import wsb.bugtracker.repositories.ProjectRepository;
 
-import java.util.List;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +16,16 @@ public class ProjectService {
 
     final private ProjectRepository projectRepository;
 
-
     public Page<Project> findAll(Specification<Project> specification, Pageable pageable) {
         return projectRepository.findAll(specification, pageable);
+    }
 
-
+    public void save(Project project) {
+        if (project.getDateCreated() == null) {
+            project.setDateCreated(new Date());
+        }
+        projectRepository.save(project);
     }
 }
+
 
