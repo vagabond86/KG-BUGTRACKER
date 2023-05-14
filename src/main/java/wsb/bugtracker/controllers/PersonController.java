@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.bugtracker.models.Person;
-import wsb.bugtracker.models.Project;
 import wsb.bugtracker.services.PersonService;
 
 import java.util.List;
@@ -33,4 +32,29 @@ public class PersonController {
         personService.delete(id);
         return new ModelAndView("redirect:/people");
     }
+
+    @GetMapping("/create")
+    ModelAndView create() {
+        ModelAndView modelAndView = new ModelAndView("/people/create");
+        Person newPerson = new Person();
+        modelAndView.addObject("person", newPerson);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/save")
+    ModelAndView save(@ModelAttribute @Valid Person person, BindingResult result) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (result.hasErrors()) {
+            modelAndView.setViewName("people/create");
+            modelAndView.addObject("person", person);
+            return modelAndView;
+        }
+
+        personService.save(person);
+        modelAndView.setViewName("redirect:/people");
+        return modelAndView;
+    }
+
 }

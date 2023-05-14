@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Create</title>
+    <title>Utwórz projekt</title>
 </head>
 <body>
+<section layout:fragment="custom-content">
 <form th:action="@{/projects/save}" th:object="${project}" method="post">
     <div class="container">
         <div class="form-group mt-2">
@@ -51,5 +53,6 @@
 </form>
 
 
+</section>
 </body>
 </html>
