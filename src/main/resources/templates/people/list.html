@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+  <title>Twórcy</title>
+</head>
+<body>
+<section layout:fragment="custom-content">
+
+  <div th:each="person : ${people}">
+    <div class="card mt-4">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-3">
+            <h5 class="card-title" th:text="${person.getUserRealName()}"></h5>
+          </div>
+          <div class="col-3">
+            <p th:text="${person.getLogin()}"></p>
+          </div>
+          <div class="col-3">
+            <p th:text="${person.getEmail()}"></p>
+          </div>
+          <div class="col-3 text-center">
+            <a th:href="@{/people/delete/{id}(id=${person.getId()})}"
+               class="btn btn-danger float-right">usuń</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>
