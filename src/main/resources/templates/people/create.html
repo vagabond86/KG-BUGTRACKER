@@ -8,6 +8,9 @@
 <body>
 <section layout:fragment="custom-content">
 
+    <h3 th:text="#{people.create}"></h3>
+
+
     <form th:action="@{/people/save}" th:object="${person}" method="post">
         <div class="container">
 

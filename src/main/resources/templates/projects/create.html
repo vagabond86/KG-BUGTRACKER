@@ -7,6 +7,9 @@
 </head>
 <body>
 <section layout:fragment="custom-content">
+
+    <h3 th:text="#{projects.create}"></h3>
+
     <form th:action="@{/projects/save}" th:object="${project}" method="post">
         <div class="container">
             <div class="form-group mt-2">

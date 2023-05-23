@@ -8,6 +8,8 @@
 <body>
 <section layout:fragment="custom-content">
 
+  <h3 th:text="#{people.list}"></h3>
+
   <div th:each="person : ${people}">
     <div class="card mt-4">
       <div class="card-header">
