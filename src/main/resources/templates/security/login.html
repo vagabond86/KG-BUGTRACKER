@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+  <title>Logowanie</title>
+</head>
+<body>
+<section layout:fragment="custom-content">
+  <h3>Logowanie</h3>
+
+  <div th:if="${param.error}" class="alert alert-danger">
+    Błędny login lub hasło!
+  </div>
+
+  <form th:action="@{/login}" method="post">
+    <div class="form-group">
+      <label for="username">Nazwa użytkownika:</label>
+      <input type="text" id="username" name="username" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Hasło:</label>
+      <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zaloguj</button>
+  </form>
+
+</section>
+</body>
+</html>
