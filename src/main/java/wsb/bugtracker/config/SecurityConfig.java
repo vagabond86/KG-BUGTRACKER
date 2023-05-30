@@ -27,7 +27,7 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-    //metoda dla tymczasowego użytkownika
+    // metoda dla tymczasowego użytkownika
     @Bean
     public UserDetailsService userDetailsService(){
         UserDetails userDetails =
