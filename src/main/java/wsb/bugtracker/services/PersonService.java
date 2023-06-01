@@ -13,15 +13,19 @@ public class PersonService {
 
     final private PersonRepository personRepository;
 
-    public List<Person> findAll(){
+    public List<Person> findAll() {
         return personRepository.findAll();
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         personRepository.deleteById(id);
     }
 
     public void save(Person person) {
         personRepository.save(person);
+    }
+
+    public Person findById(Long id) {
+        return personRepository.findById(id).orElse(null);
     }
 }

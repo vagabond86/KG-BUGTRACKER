@@ -57,4 +57,27 @@ public class PersonController {
         return modelAndView;
     }
 
+    @GetMapping("/edit/{id}")
+    ModelAndView edit(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/people/edit");
+        Person person = personService.findById(id);
+        modelAndView.addObject("person", person);
+        return modelAndView;
+    }
+
+    @PostMapping("/update")
+    ModelAndView update(@ModelAttribute @Valid Person person, BindingResult result) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (result.hasErrors()) {
+            modelAndView.setViewName("people/edit");
+            modelAndView.addObject("person", person);
+            return modelAndView;
+        }
+
+        personService.save(person);
+        modelAndView.setViewName("redirect:/people");
+        return modelAndView;
+    }
+
 }
