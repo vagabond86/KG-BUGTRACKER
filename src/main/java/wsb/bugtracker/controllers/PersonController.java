@@ -65,8 +65,8 @@ public class PersonController {
         return modelAndView;
     }
 
-    @PostMapping("/update")
-    ModelAndView update(@ModelAttribute @Valid Person person, BindingResult result) {
+    @PostMapping("/update/{id}")
+    ModelAndView update(@ModelAttribute @Valid Person person, BindingResult result, @PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
 
         if (result.hasErrors()) {
@@ -75,9 +75,18 @@ public class PersonController {
             return modelAndView;
         }
 
-        personService.save(person);
+        Person editPerson = personService.findById(id);
+        if (editPerson == null) {
+            return new ModelAndView("redirect:/people");
+        }
+
+        editPerson.setEmail(person.getEmail());
+        editPerson.setUserRealName(person.getUserRealName());
+        editPerson.setLogin(person.getLogin());
+        editPerson.setPassword(person.getPassword());
+
+        personService.save(editPerson);
         modelAndView.setViewName("redirect:/people");
         return modelAndView;
     }
-
 }

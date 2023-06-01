@@ -24,8 +24,12 @@
                         <p th:text="${person.getEmail()}"></p>
                     </div>
                     <div class="col-3 text-center">
-                        <a th:href="@{/people/delete/{id}(id=${person.getId()})}"
-                           class="btn btn-danger float-right">usuń</a>
+                        <div class="btn-group" role="group">
+                            <a th:href="@{/people/edit/{id}(id=${person.getId()})}"
+                               class="btn btn-primary">Edytuj</a>
+                            <a th:href="@{/people/delete/{id}(id=${person.getId()})}"
+                               class="btn btn-danger">Usuń</a>
+                        </div>
                     </div>
                 </div>
             </div>
