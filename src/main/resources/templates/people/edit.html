@@ -3,7 +3,7 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-    <title>Edytuj użytkownika</title>
+    <title th:text="#{people.edit}"></title>
 </head>
 
 <body>
@@ -72,9 +72,20 @@
 
         </div>
 
-        <button type="submit" class="btn btn-primary mt-2">
-            Zapisz
-        </button>
+        <div class="col">
+            <div class="btn-group" role="group">
+
+                <a href="/people" class="btn btn-secondary mt-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span th:text="#{common.back}"></span>
+                </a>
+
+                <button type="submit" class="btn btn-primary mt-2">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span th:text="#{common.save}"></span>
+                </button>
+            </div>
+        </div>
     </form>
 
 </section>

@@ -3,25 +3,35 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-    <title>Projekty</title>
+    <title th:text="#{projects.index}"></title>
 </head>
 <body>
 <section layout:fragment="custom-content">
 
-    <h3 th:text="#{projects.index}"></h3>
-
     <div class="row mt-3 mb-3">
         <div class="col">
-            <a href="/projects/create" class="btn btn-primary"> <i class="fa-regular fa-file"></i> Nowy projekt</a>
-            <a href="/people" class="btn btn-primary"><i class="fa-solid fa-users"></i> Lista użytkowników</a>
-            <a href="/people/create" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Dodaj nowego
-                użytkownika</a>
-            <a href="/mail" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Wyślij wiadomość</a>
-
+            <a href="/projects/create" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span class="icon-text" th:text="#{projects.create}"></span>
+            </a>
+            <a href="/people" class="btn btn-primary">
+                <i class="fa-solid fa-users"></i>
+                <span class="icon-text" th:text="#{people.list}"></span>
+            </a>
+            <a href="/people/create" class="btn btn-primary">
+                <i class="fa-solid fa-user-plus"></i>
+                <span class="icon-text" th:text="#{people.create}"></span>
+            </a>
+            <a href="/mail" class="btn btn-primary">
+                <i class="fa-solid fa-envelope"></i>
+                <span class="icon-text" th:text="#{mail.new-message}"></span>
+            </a>
         </div>
     </div>
 
-    <form th:action="@{/projects}" th:object="${filter}" class="row">
+    <h3 th:text="#{projects.index}"></h3>
+
+    <form th:action="@{/projects}" th:object="${filter}" class="row mt-3">
         <div class="col-3">
             <input th:field="*{name}"
                    class="form-control"
@@ -54,7 +64,9 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
 
-                <button th:href="@{/projects}" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></button>
+                <a href="/projects" class="btn btn-danger">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
 
                 <span th:with="sortingDir=${projects.sort.getOrderFor('name') != null ? projects.sort.getOrderFor('name').direction.toString() : null}">
             <a th:href="@{'/projects?' + ${filter.toQueryString(projects.number, filter.findNextSorting(projects.sort))}}">
@@ -78,7 +90,8 @@
                     <div class="col-10">
                         <h5 class="card-title" th:text="${project.name}"></h5>
                         <small class="text-muted">
-                            <span th:text="|Utworzony przez: ${project.creator.userRealName}, w dniu: ${#dates.format(project.dateCreated, 'dd-MM-yyyy')}|"></span>
+                            <span th:text="#{common.createdBy}"></span>: <span th:text="${project.creator?.userRealName}"></span>,
+                            <span th:text="#{common.createdOn}"></span>: <span th:text="${#dates.format(project.dateCreated, 'dd-MM-yyyy')}"></span>
                         </small>
                     </div>
                     <div class="col-2">

@@ -3,7 +3,7 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-    <title>Edytuj projekt</title>
+    <title th:text="#{projects.edit}"></title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         <div class="container">
             <div class="form-group mt-2">
                 <label for="project-creator">
-                    Użytkownik
+                    <a th:text="#{projects.creator}"></a>
                 </label>
 
                 <select id="project-creator" class="form-control" th:field="*{creator}">
@@ -27,11 +27,13 @@
             </div>
 
             <div class="form-group mt-2">
-                <label for="project-name">Nazwa</label>
+                <label for="project-name">
+                    <a th:text="#{projects.name}"></a>
+                </label>
                 <input type="text"
                        th:class="'form-control' + ${#fields.hasErrors('name') ? ' is-invalid' : ''}"
                        id="project-name"
-                       placeholder="Nazwa projektu"
+                       th:placeholder="#{projects.name}"
                        th:field="*{name}">
 
                 <small th:errors="*{name}"
@@ -41,11 +43,13 @@
             </div>
 
             <div class="form-group mt-2">
-                <label for="project-description">Opis</label>
+                <label for="project-description">
+                    <a th:text="#{projects.decription}"></a>
+                </label>
                 <textarea class="form-control mt-2"
                           th:class="'form-control' + ${#fields.hasErrors('description') ? ' is-invalid' : ''}"
                           id="project-description"
-                          placeholder="Opis projektu"
+                          th:placeholder="#{projects.decription}"
                           th:field="*{description}"></textarea>
 
                 <small th:errors="*{description}"
@@ -53,11 +57,21 @@
                        class="form-text text-danger"
                 ></small>
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary mt-2">
-            Zapisz
-        </button>
-        </div>
+
+            <div class="col">
+                <div class="btn-group" role="group">
+
+                    <a href="/projects" class="btn btn-secondary mt-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span th:text="#{common.back}"></span>
+                    </a>
+
+                    <button type="submit" class="btn btn-primary mt-2">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span th:text="#{common.save}"></span>
+                    </button>
+                </div>
+            </div>
     </form>
 </section>
 </body>
