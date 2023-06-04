@@ -12,10 +12,10 @@
 
     <div class="row mb-3">
         <div class="col">
-                <a href="/projects/create" class="btn btn-primary">Nowy projekt</a>
-                <a href="/people" class="btn btn-primary">Lista użytkowników</a>
-                <a href="/people/create" class="btn btn-primary">Dodaj nowego użytkownika</a>
-                <a href="/mail" class="btn btn-primary">Wyślij wiadomość</a>
+            <a href="/projects/create" class="btn btn-primary"> <i class="fa-regular fa-file"></i> Nowy projekt</a>
+            <a href="/people" class="btn btn-primary"><i class="fa-solid fa-users"></i> Lista użytkowników</a>
+            <a href="/people/create" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Dodaj nowego użytkownika</a>
+            <a href="/mail" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Wyślij wiadomość</a>
 
         </div>
     </div>
@@ -50,16 +50,29 @@
         </div>
 
         <div class="col">
-            <button type="submit"
-                    th:text="#{common.search}" class="btn btn-primary"
-            ></button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
 
             <button
-            th:href="@{/projects}" th:text="#{common.clear}" class="btn btn-danger">
+                    th:href="@{/projects}" th:text="#{common.clear}" class="btn btn-danger">
             </button>
         </div>
 
     </form>
+
+    <div class="row">
+        <span th:text="#{common.sort}"></span>
+
+        <span th:with="sortingDir=${projects.sort.getOrderFor('name') != null ? projects.sort.getOrderFor('name').direction.toString() : null}">
+            <a th:href="@{'/projects?' + ${filter.toQueryString(projects.number, filter.findNextSorting(projects.sort))}}">
+                <i th:if="${sortingDir == null}" class="fa-solid fa-sort"></i>
+                <i th:if="${sortingDir == 'ASC'}" class="fa-solid fa-sort-up"></i>
+                <i th:if="${sortingDir == 'DESC'}" class="fa-solid fa-sort-down"></i>
+            </a>
+        </span>
+    </div>
+
 
     <div th:each="project : ${projects}">
         <div class="card mt-4">
@@ -72,8 +85,9 @@
                         </small>
                     </div>
                     <div class="col-3 text-center">
-                        <a th:href="@{/projects/delete/{id}(id=${project.getId()})}"
-                           class="btn btn-danger float-righ">usuń</a>
+                        <a th:href="@{/projects/delete/{id}(id=${project.getId()})}" class="btn btn-danger float-right">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -82,6 +96,46 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-4">
+        <ul class="pagination justify-content-center">
+
+            <li th:if="${projects.number != 0}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(0, projects.sort)}}" class="page-link"
+                   aria-label="First">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+
+            <li th:if="${projects.number != 0}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(projects.number - 1, projects.sort)}}"
+                   class="page-link" aria-label="Previous">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+
+            <li th:each="pageNumber : ${#numbers.sequence(T(java.lang.Math).max(projects.number - 2, 0), T(java.lang.Math).min(projects.number + 2, projects.totalPages - 1))}"
+                th:class="${'page-item ' + ((pageNumber == projects.number) ? 'active' : '')}">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(pageNumber, projects.sort)}}"
+                   th:text="${pageNumber + 1}" class="page-link"></a>
+            </li>
+
+            <li th:if="${projects.number != (projects.totalPages - 1)}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(projects.number + 1, projects.sort)}}"
+                   class="page-link" aria-label="Next">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+
+            <li th:if="${projects.number != (projects.totalPages - 1)}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(projects.totalPages - 1, projects.sort)}}"
+                   class="page-link" aria-label="Last">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 
 </section>
 </body>
