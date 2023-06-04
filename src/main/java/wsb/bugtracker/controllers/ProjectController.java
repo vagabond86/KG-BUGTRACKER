@@ -72,6 +72,41 @@ public class ProjectController {
         return new ModelAndView("redirect:/projects");
     }
 
+    @GetMapping("/edit/{id}")
+    ModelAndView edit(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/projects/edit");
+        Project project = projectService.findById(id);
+        modelAndView.addObject("project", project);
+
+        List<Person> people = personService.findAll();
+        modelAndView.addObject("people", people);
+        return modelAndView;
+    }
+
+    @PostMapping("/update/{id}")
+    ModelAndView update(@ModelAttribute @Valid Project project, BindingResult result, @PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (result.hasErrors()) {
+            modelAndView.setViewName("projects/edit");
+            modelAndView.addObject("project", project);
+            return modelAndView;
+        }
+
+        Project editProject = projectService.findById(id);
+        if (editProject == null) {
+            return new ModelAndView("redirect:/projects");
+        }
+
+        editProject.setName(project.getName());
+        editProject.setDescription(project.getDescription());
+        editProject.setCreator(project.getCreator());
+
+        projectService.save(editProject);
+        modelAndView.setViewName("redirect:/projects");
+        return modelAndView;
+    }
+
 
 }
 
