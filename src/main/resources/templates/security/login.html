@@ -3,11 +3,12 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-  <title>Logowanie</title>
+  <title th:text="#{common.login}"></title>
 </head>
 <body>
 <section layout:fragment="custom-content">
-  <h3>Logowanie</h3>
+
+  <h3 th:text="#{common.login}"></h3>
 
   <div th:if="${param.error}" class="alert alert-danger">
     Błędny login lub hasło!
@@ -15,16 +16,22 @@
 
   <form th:action="@{/login}" method="post">
     <div class="form-group">
-      <label for="username">Nazwa użytkownika:</label>
+      <label for="username">
+        <a th:text="#{people.login}"></a>
+        </label>
       <input type="text" id="username" name="username" class="form-control" required>
     </div>
 
     <div class="form-group">
-      <label for="password">Hasło:</label>
+      <label for="password">
+        <a th:text="#{people.password}"></a>
+      </label>
       <input type="password" id="password" name="password" class="form-control" required>
     </div>
 
-    <button type="submit" class="btn btn-primary">Zaloguj</button>
+    <button type="submit" class="btn btn-primary">
+      <a th:text="#{common.logIn}"></a>
+    </button>
   </form>
 
 </section>
