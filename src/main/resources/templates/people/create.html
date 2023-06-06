@@ -69,7 +69,7 @@
                 <input type="password"
                        th:class="'form-control' + ${#fields.hasErrors('password') ? ' is-invalid' : ''}"
                        id="person-password"
-                       th:placeholder="#{people.password}"
+                       th:placeholder="#{Pattern.person.password}"
                        th:field="*{password}">
 
                 <small th:errors="*{password}"
