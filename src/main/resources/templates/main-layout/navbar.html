@@ -1,25 +1,51 @@
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand me-2" href="/projects">
-                <img
-                        src="https://i.postimg.cc/bwvXqCh3/KG-BUG-LOGO.png"
-                        height="100"
-                        alt="KG BUGTRACKER"
-                        loading="lazy"
-                        style="margin-top: -1px;"
-                />
+            <a class="navbar-brand" href="/projects">
+                <img src="https://i.postimg.cc/bwvXqCh3/KG-BUG-LOGO.png" height="100" alt="KG BUGTRACKER" loading="lazy" style="margin-top: -1px;">
             </a>
-            <div class="d-flex align-items-center">
 
-                <button type="button" class="btn btn-primary me-3">
-                    <i class="fa-solid fa-user"></i>
-                </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/projects">
+                            <i class="fa-solid fa-list"></i>
+                            <span th:text="#{projects.index}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/issues">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span th:text="#{issues.index}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/people">
+                            <i class="fa-solid fa-users me-1"></i>
+                            <span th:text="#{people.index}"></span>
+                        </a>
+                    </li>
 
-                <button type="button" class="btn btn-danger">
-                    <a th:href="@{/logout}">
-                        <i class="fa-solid fa-right-from-bracket" style="color: white"></i></a>
-                </button>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mail">
+                            <i class="fa-solid fa-envelope me-1"></i>
+                            <span th:text="#{mail.new-message}"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-danger">
+                            <a th:href="@{/logout}" class="text-white">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-solid fa-user"></i>
+                        </button>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

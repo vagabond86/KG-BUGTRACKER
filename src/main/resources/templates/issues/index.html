@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+    <title th:text="#{issues.index}"></title>
+</head>
+
+<body>
+<section layout:fragment="custom-content">
+
+    <div class="row mt-3 mb-3">
+        <div class="col">
+            <a href="/issues/create" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span class="icon-text" th:text="#{issues.create}"></span>
+            </a>
+        </div>
+    </div>
+
+    <h3 th:text="#{issues.index}"></h3>
+
+    </form>
+
+    <div th:each="issue : ${issues}">
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-10">
+                        <h5 class="card-title" th:text="${issue.name}"></h5>
+                        <small class="text-muted">
+                            <span th:text="#{common.project}"></span>: <span th:text="${issue.project.name}"></span>,
+                            <span th:text="#{common.createdBy}"></span>: <span th:text="${issue.creator?.userRealName}"></span>,
+                            <span th:text="#{common.createdOn}"></span>: <span th:text="${#dates.format(issue.dateCreated, 'dd-MM-yyyy')}"></span>
+                        </small>
+                    </div>
+                    <div class="col-2">
+                        <div class="btn-group" role="group">
+                            <a th:href="@{/issues/edit/{id}(id=${issue.getId()})}"
+                               class="btn btn-primary">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a th:href="@{/issues/delete/{id}(id=${issue.getId()})}"
+                               class="btn btn-danger float-right">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${issue.description}"></p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

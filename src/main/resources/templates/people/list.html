@@ -3,12 +3,22 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-    <title th:text="#{people.list}"></title>
+    <title th:text="#{people.index}"></title>
 </head>
+
 <body>
 <section layout:fragment="custom-content">
 
-    <h3 th:text="#{people.list}"></h3>
+    <div class="row mt-3 mb-3">
+        <div class="col">
+            <a href="/people/create" class="btn btn-primary">
+                <i class="fa-solid fa-user-plus"></i>
+                <span class="icon-text" th:text="#{people.create}"></span>
+            </a>
+        </div>
+    </div>
+
+    <h3 th:text="#{people.index}"></h3>
 
     <div th:each="person : ${people}">
         <div class="card mt-4">

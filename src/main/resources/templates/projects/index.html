@@ -5,6 +5,7 @@
 <head>
     <title th:text="#{projects.index}"></title>
 </head>
+
 <body>
 <section layout:fragment="custom-content">
 
@@ -13,18 +14,6 @@
             <a href="/projects/create" class="btn btn-primary">
                 <i class="fa-solid fa-plus"></i>
                 <span class="icon-text" th:text="#{projects.create}"></span>
-            </a>
-            <a href="/people" class="btn btn-primary">
-                <i class="fa-solid fa-users"></i>
-                <span class="icon-text" th:text="#{people.list}"></span>
-            </a>
-            <a href="/people/create" class="btn btn-primary">
-                <i class="fa-solid fa-user-plus"></i>
-                <span class="icon-text" th:text="#{people.create}"></span>
-            </a>
-            <a href="/mail" class="btn btn-primary">
-                <i class="fa-solid fa-envelope"></i>
-                <span class="icon-text" th:text="#{mail.new-message}"></span>
             </a>
         </div>
     </div>

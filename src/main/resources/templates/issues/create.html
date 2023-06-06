@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+    <title th:text="#{issues.create}"></title>
+</head>
+<body>
+<section layout:fragment="custom-content">
+
+    <h3 th:text="#{issues.create}"></h3>
+
+    <form th:action="@{/issues/save}" th:object="${issue}" method="post">
+        <div class="container">
+
+            <div class="form-group mt-2">
+                <label for="issue-project">
+                    <a th:text="#{issues.project}"></a>
+                </label>
+
+                <select id="issue-project" class="form-control" th:field="*{project}">
+                    <option th:each="project : ${project}"
+                            th:value="${project.id}"
+                            th:text="${project.name}"
+                    ></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-creator">
+                    <a th:text="#{issues.creator}"></a>
+                </label>
+
+                <select id="issue-creator" class="form-control" th:field="*{creator}">
+                    <option th:each="person : ${people}"
+                            th:value="${person.id}"
+                            th:text="${person.userRealName}"
+                    ></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-name">
+                    <a th:text="#{issues.name}"></a>
+                </label>
+                <input type="text"
+                       th:class="'form-control' + ${#fields.hasErrors('name') ? ' is-invalid' : ''}"
+                       id="issue-name"
+                       th:placeholder="#{issues.name}"
+                       th:field="*{name}">
+
+                <small th:errors="*{name}"
+                       th:if="${#fields.hasErrors('name')}"
+                       class="form-text text-danger"
+                ></small>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-description">
+                    <a th:text="#{issues.description}"></a>
+                </label>
+                <textarea class="form-control mt-2"
+                          th:class="'form-control' + ${#fields.hasErrors('description') ? ' is-invalid' : ''}"
+                          id="issue-description"
+                          th:placeholder="#{issues.description}"
+                          th:field="*{description}"></textarea>
+
+                <small th:errors="*{description}"
+                       th:if="${#fields.hasErrors('description')}"
+                       class="form-text text-danger"
+                ></small>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-status">
+                    <a th:text="#{issues.status}"></a>
+                </label>
+
+                <select id="issue-status" class="form-control" th:field="*{status}">
+                    <option th:each="s : ${T(wsb.bugtracker.models.Status).values()}"
+                            th:value="${s}"
+                            th:text="${s}"
+                    ></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-priority">
+                    <a th:text="#{issues.priority}"></a>
+                </label>
+
+                <select id="issue-priority" class="form-control" th:field="*{priority}">
+                    <option th:each="p : ${T(wsb.bugtracker.models.Priority).values()}"
+                            th:value="${p}"
+                            th:text="${p}"
+                    ></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-type">
+                    <a th:text="#{issues.type}"></a>
+                </label>
+
+                <select id="issue-type" class="form-control" th:field="*{type}">
+                    <option th:each="t : ${T(wsb.bugtracker.models.Type).values()}"
+                            th:value="${t}"
+                            th:text="${t}"
+                    ></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="issue-assignee">
+                    <a th:text="#{issues.assignee}"></a>
+                </label>
+
+                <select id="issue-assignee" class="form-control" th:field="*{assignee}">
+                    <option th:each="person : ${people}"
+                            th:value="${person.id}"
+                            th:text="${person.userRealName}"
+                    ></option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="btn-group" role="group">
+
+                <a href="/issues" class="btn btn-secondary mt-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span th:text="#{common.back}"></span>
+                </a>
+
+                <button type="submit" class="btn btn-primary mt-2">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span th:text="#{common.save}"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</section>
+</body>
+</html>
