@@ -25,6 +25,7 @@ public class Person {
     @Column(nullable = false)
     @NotBlank
     private String userRealName;
+
     @Email
     @NotBlank
     private String email;
