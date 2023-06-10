@@ -1,6 +1,7 @@
 package wsb.bugtracker.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import wsb.bugtracker.models.Person;
@@ -32,14 +33,21 @@ public class PersonService {
         return personRepository.findById(id).orElse(null);
     }
 
-    public void saveAdmin(){
-        String login = "admin";
-        String password = "#Admin12!";
-        String email = "admin@wsb.pl";
+    @Value("${admin.login}")
+    private String adminLogin;
+    @Value("${admin.password}")
+    private String adminPassword;
+    @Value("${admin.email}")
+    private String adminEmail;
 
-        Optional<Person> person = personRepository.findByLogin(login);
+    public void saveAdmin() {
+        String login = adminLogin;
+        String password = adminPassword;
+        String email = adminEmail;
 
-        if(person.isPresent()){
+        Optional<Person> person = findByLogin(login);
+
+        if (person.isPresent()) {
             System.out.println();
             System.out.println("Użytkownik administracyjny już istnieje!");
             return;
@@ -57,4 +65,9 @@ public class PersonService {
 
         personRepository.save(newPerson);
     }
+
+    public Optional<Person> findByLogin(String login) {
+        return personRepository.findByLogin(login);
+    }
+
 }
