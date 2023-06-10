@@ -2,11 +2,14 @@ package wsb.bugtracker.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.bugtracker.models.Person;
+import wsb.bugtracker.repositories.AuthorityRepository;
 import wsb.bugtracker.services.PersonService;
 
 import java.util.List;
@@ -16,9 +19,14 @@ import java.util.List;
 @RequestMapping("/people")
 public class PersonController {
 
-    final private PersonService personService;
+    private final PersonService personService;
+    private final AuthorityRepository authorityRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 
     @GetMapping
+    @Secured("ROLE_LIST_USER")
     ModelAndView list () {
         ModelAndView modelAndView = new ModelAndView("/people/list");
         List<Person> people = personService.findAll();
@@ -27,6 +35,7 @@ public class PersonController {
     }
 
     @GetMapping("/delete/{id}")
+    @Secured("ROLE_DELETE_USER")
     ModelAndView delete(@PathVariable Long id) {
         System.out.println("usuwanie użytkownika" + id);
         personService.delete(id);
@@ -34,6 +43,7 @@ public class PersonController {
     }
 
     @GetMapping("/create")
+    @Secured("ROLE_CREATE_USER")
     ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("/people/create");
         Person newPerson = new Person();
@@ -51,7 +61,9 @@ public class PersonController {
             modelAndView.addObject("person", person);
             return modelAndView;
         }
+        String hashedPassword = bCryptPasswordEncoder.encode(person.getPassword());
 
+        person.setPassword(hashedPassword);
         personService.save(person);
         modelAndView.setViewName("redirect:/people");
         return modelAndView;

@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectService {
 
-    final private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
     public Page<Project> findAll(Specification<Project> specification, Pageable pageable) {
         return projectRepository.findAll(specification, pageable);

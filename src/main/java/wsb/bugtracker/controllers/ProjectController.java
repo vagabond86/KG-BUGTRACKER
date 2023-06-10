@@ -21,8 +21,8 @@ import java.util.List;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    final private ProjectService projectService;
-    final private PersonService personService;
+    private final ProjectService projectService;
+    private final PersonService personService;
 
     @GetMapping
     ModelAndView index(@ModelAttribute ProjectFilter filter, Pageable pageable) {

@@ -1,6 +1,7 @@
 package wsb.bugtracker.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PersonService {
 
-    final private PersonRepository personRepository;
-    final private BCryptPasswordEncoder bCryptPasswordEncoder;
-    final private AuthorityRepository authorityRepository;
+    private final PersonRepository personRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AuthorityRepository authorityRepository;
 
     public List<Person> findAll() {
         return personRepository.findAll();
@@ -73,7 +74,7 @@ public class PersonService {
         saveAllAuthorities(newPerson);
     }
 
-    public void saveAllAuthorities(Person person){
+    public void saveAllAuthorities(Person person) {
 
         List<Authority> authorities = authorityRepository.findAll();
         Set<Authority> authoritySet = new HashSet<>(authorities);
@@ -84,4 +85,4 @@ public class PersonService {
 
 
     }
- }
+}

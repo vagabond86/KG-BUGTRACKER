@@ -11,7 +11,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<div layout:replace="/main-layout/navbar :: navbar"></div>
+<div th:replace="/main-layout/navbar :: navbar"></div>
 
 <div class="container">
     <section layout:fragment="custom-content">
@@ -19,7 +19,7 @@
     </section>
 </div>
 
-<div layout:replace="/main-layout/footer :: footer"></div>
+<div th:replace="/main-layout/footer :: footer"></div>
 
 <script crossorigin="anonymous"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
