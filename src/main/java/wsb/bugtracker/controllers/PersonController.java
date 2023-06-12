@@ -20,7 +20,6 @@ import java.util.List;
 public class PersonController {
 
     private final PersonService personService;
-    private final AuthorityRepository authorityRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
