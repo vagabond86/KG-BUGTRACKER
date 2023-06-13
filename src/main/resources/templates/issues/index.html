@@ -20,6 +20,102 @@
 
     <h3 th:text="#{issues.index}"></h3>
 
+    <form th:action="@{/issues}" th:object="${filter}" class="row mt-3">
+
+        <div class="col-2">
+            <label>
+                <select th:field="*{creator}"
+                        class="form-control">
+                    <option th:value="${null}"
+                            th:text="#{projects.creator}"
+                    ></option>
+
+                    <option th:each="person : ${people}"
+                            th:value="${person.getId()}"
+                            th:text="${person.getUserRealName()}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+        <div class="col-2">
+            <label>
+                <select th:field="*{assignee}"
+                        class="form-control">
+                    <option th:value="${null}"
+                            th:text="#{issues.assignee}"
+                    ></option>
+
+                    <option th:each="person : ${people}"
+                            th:value="${person.getId()}"
+                            th:text="${person.getUserRealName()}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-1">
+            <label>
+                <select th:field="*{status}" class="form-control">
+                    <option value="" th:text="#{issues.status}"></option>
+                    <option th:each="status : ${T(wsb.bugtracker.models.Status).values()}"
+                            th:value="${status}"
+                            th:text="${status}"></option>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-1">
+            <label>
+                <select th:field="*{type}" class="form-control">
+                    <option value="" th:text="#{issues.type}"></option>
+                    <option th:each="type : ${T(wsb.bugtracker.models.Type).values()}"
+                            th:value="${type}"
+                            th:text="${type}"></option>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-1">
+            <label>
+                <select th:field="*{priority}" class="form-control">
+                    <option value="" th:text="#{issues.priority}"></option>
+                    <option th:each="priority : ${T(wsb.bugtracker.models.Priority).values()}"
+                            th:value="${priority}"
+                            th:text="${priority}"></option>
+                </select>
+            </label>
+        </div>
+
+
+        <div class="col-3">
+            <label>
+                <input th:field="*{globalSearch}"
+                       class="form-control"
+                       th:placeholder="#{common.globalSearch}"/>
+            </label>
+        </div>
+
+        <div class="col-2">
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <a href="/issues" class="btn btn-danger">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+
+                <span th:with="sortingDir=${issues.sort.getOrderFor('name') != null ? issues.sort.getOrderFor('name').direction.toString() : null}">
+                    <a th:href="@{'/issues?' + ${filter.toQueryString(issues.number, filter.findNextSorting(issues.sort))}}">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <i th:if="${sortingDir == null}" class="fa-solid fa-sort"></i>
+                            <i th:if="${sortingDir == 'ASC'}" class="fa-solid fa-sort-up"></i>
+                            <i th:if="${sortingDir == 'DESC'}" class="fa-solid fa-sort-down"></i>
+                        </button>
+                    </a>
+                </span>
+            </div>
+        </div>
     </form>
 
     <div th:each="issue : ${issues}">
@@ -30,8 +126,10 @@
                         <h5 class="card-title" th:text="${issue.name}"></h5>
                         <small class="text-muted">
                             <span th:text="#{common.project}"></span>: <span th:text="${issue.project.name}"></span>,
-                            <span th:text="#{common.createdBy}"></span>: <span th:text="${issue.creator?.userRealName}"></span>,
-                            <span th:text="#{common.createdOn}"></span>: <span th:text="${#dates.format(issue.dateCreated, 'dd-MM-yyyy')}"></span>
+                            <span th:text="#{common.createdBy}"></span>: <span
+                                th:text="${issue.creator?.userRealName}"></span>,
+                            <span th:text="#{common.createdOn}"></span>: <span
+                                th:text="${#dates.format(issue.dateCreated, 'dd-MM-yyyy')}"></span>
                         </small>
                     </div>
                     <div class="col-2">
@@ -52,6 +150,44 @@
                 <p class="card-text" th:text="${issue.description}"></p>
             </div>
         </div>
+    </div>
+    <div class="row mt-4">
+        <ul class="pagination justify-content-center">
+
+            <li th:if="${issues.number != 0}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(0, issues.sort)}}" class="page-link"
+                   aria-label="First">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+
+            <li th:if="${issues.number != 0}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(issues.number - 1, issues.sort)}}"
+                   class="page-link" aria-label="Previous">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+
+            <li th:each="pageNumber : ${#numbers.sequence(T(java.lang.Math).max(issues.number - 2, 0), T(java.lang.Math).min(issues.number + 2, issues.totalPages - 1))}"
+                th:class="${'page-item ' + ((pageNumber == issues.number) ? 'active' : '')}">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(pageNumber, issues.sort)}}"
+                   th:text="${pageNumber + 1}" class="page-link"></a>
+            </li>
+
+            <li th:if="${issues.number != (issues.totalPages - 1)}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(issues.number + 1, issues.sort)}}"
+                   class="page-link" aria-label="Next">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+
+            <li th:if="${issues.number != (issues.totalPages - 1)}" class="page-item">
+                <a th:href="@{'/projects?' + ${filter.toQueryString(issues.totalPages - 1, issues.sort)}}"
+                   class="page-link" aria-label="Last">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 </section>
 </body>

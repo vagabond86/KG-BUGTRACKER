@@ -2,11 +2,14 @@ package wsb.bugtracker.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import wsb.bugtracker.filters.IssueFilter;
 import wsb.bugtracker.models.Issue;
 import wsb.bugtracker.models.Person;
 import wsb.bugtracker.models.Project;
@@ -27,11 +30,15 @@ public class IssueController {
 
     @GetMapping
     @Secured("ROLE_VIEW_ISSUE")
-    ModelAndView index() {
+    ModelAndView index(@ModelAttribute IssueFilter filter, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("issues/index");
 
-        List<Issue> issues = issueService.findAll();
+        Page<Issue> issues = issueService.findAll(filter.buildSpecification(), pageable);
         modelAndView.addObject("issues", issues);
+
+        List<Person> people = personService.findAll();
+        modelAndView.addObject("people", people);
+        modelAndView.addObject("filter", filter);
 
         return modelAndView;
     }
