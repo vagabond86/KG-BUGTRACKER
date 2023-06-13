@@ -98,7 +98,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <p class="card-text" th:text="${project.description}"></p>
+                <p class="card-text">
+                    <span th:text="#{projects.description}"></span>: <span th:text="${project.description}"></span>
+                </p>
             </div>
         </div>
     </div>
