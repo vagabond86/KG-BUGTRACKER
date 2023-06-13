@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class ProjectController {
     private final PersonService personService;
 
     @GetMapping
+    @Secured("ROLE_VIEW_PROJECT")
     ModelAndView index(@ModelAttribute ProjectFilter filter, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("projects/index");
         Page<Project> projects = projectService.findAll(filter.buildSpecification(), pageable);
@@ -36,6 +38,7 @@ public class ProjectController {
     }
 
     @GetMapping("/create")
+    @Secured("ROLE_CREATE_PROJECT")
     ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("/projects/create");
 
@@ -50,6 +53,7 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
+    @Secured("ROLE_CREATE_PROJECT")
     ModelAndView save(@ModelAttribute @Valid Project project, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -66,6 +70,7 @@ public class ProjectController {
     }
 
     @GetMapping("/delete/{id}")
+    @Secured("ROLE_DELETE_PROJECT")
     ModelAndView delete(@PathVariable Long id) {
         System.out.println("usuwanie projektu" + id);
         projectService.delete(id);
@@ -73,6 +78,7 @@ public class ProjectController {
     }
 
     @GetMapping("/edit/{id}")
+    @Secured("ROLE_EDIT_PROJECT")
     ModelAndView edit(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/projects/edit");
         Project project = projectService.findById(id);
@@ -84,6 +90,7 @@ public class ProjectController {
     }
 
     @PostMapping("/update/{id}")
+    @Secured("ROLE_CREATE_PROJECT")
     ModelAndView update(@ModelAttribute @Valid Project project, BindingResult result, @PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -106,7 +113,5 @@ public class ProjectController {
         modelAndView.setViewName("redirect:/projects");
         return modelAndView;
     }
-
-
 }
 

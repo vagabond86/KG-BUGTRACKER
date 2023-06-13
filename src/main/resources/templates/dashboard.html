@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+    <title th:text="#{common.dashboard}"></title>
+</head>
+
+<body>
+<section layout:fragment="custom-content">
+
+    <h3 th:text="#{common.welcome} + ' ' + ${principal.username} + '!'"></h3>
+
+</section>
+</body>
+</html>

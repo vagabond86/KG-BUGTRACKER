@@ -2,6 +2,7 @@ package wsb.bugtracker.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class IssueController {
     private final PersonService personService;
 
     @GetMapping
+    @Secured("ROLE_VIEW_ISSUE")
     ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("issues/index");
 
@@ -35,6 +37,7 @@ public class IssueController {
     }
 
     @GetMapping("/create")
+    @Secured("ROLE_CREATE_ISSUE")
     ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("/issues/create");
 
@@ -51,6 +54,7 @@ public class IssueController {
     }
 
     @PostMapping("/save")
+    @Secured("ROLE_CREATE_ISSUE")
     ModelAndView save(@ModelAttribute @Valid Issue issue, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -68,6 +72,7 @@ public class IssueController {
     }
 
     @GetMapping("/delete/{id}")
+    @Secured("ROLE_DELETE_ISSUE")
     ModelAndView delete(@PathVariable Long id) {
         System.out.println("usuwanie zgłoszenia" + id);
         issueService.delete(id);
@@ -75,6 +80,7 @@ public class IssueController {
     }
 
     @GetMapping("/edit/{id}")
+    @Secured("ROLE_EDIT_ISSUE")
     ModelAndView edit(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/issues/edit");
         Issue issue = issueService.findById(id);
@@ -89,6 +95,7 @@ public class IssueController {
     }
 
     @PostMapping("/update/{id}")
+    @Secured("ROLE_CREATE_ISSUE")
     ModelAndView update(@ModelAttribute @Valid Issue issue, BindingResult result, @PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
 

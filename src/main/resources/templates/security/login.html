@@ -11,7 +11,7 @@
     <h3 th:text="#{common.login}"></h3>
 
     <div th:if="${param.error}" class="alert alert-danger">
-        Błędny login lub hasło!
+        <span th:text="#{error.login}"></span>
     </div>
 
     <form th:action="@{/login}" method="post">
