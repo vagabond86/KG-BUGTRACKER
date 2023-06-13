@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title th:text="#{accessDenied.title}"></title>
 
@@ -11,7 +11,7 @@
 <div class="container">
     <h1 th:text="#{accessDenied.title}"></h1>
     <p th:text="#{accessDenied.message}"></p>
-    <a th:href="@{/dashboard}" th:text="#{accessDenied.return}"></a>
+    <a href="javascript:history.back()" th:text="#{accessDenied.return}"></a>
 </div>
 </body>
 </html>
