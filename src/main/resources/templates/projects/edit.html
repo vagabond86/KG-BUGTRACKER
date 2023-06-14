@@ -44,12 +44,12 @@
 
             <div class="form-group mt-2">
                 <label for="project-description">
-                    <a th:text="#{projects.decription}"></a>
+                    <a th:text="#{projects.description}"></a>
                 </label>
                 <textarea class="form-control mt-2"
                           th:class="'form-control' + ${#fields.hasErrors('description') ? ' is-invalid' : ''}"
                           id="project-description"
-                          th:placeholder="#{projects.decription}"
+                          th:placeholder="#{projects.description}"
                           th:field="*{description}"></textarea>
 
                 <small th:errors="*{description}"
@@ -72,6 +72,7 @@
                     </button>
                 </div>
             </div>
+        </div>
     </form>
 </section>
 </body>
