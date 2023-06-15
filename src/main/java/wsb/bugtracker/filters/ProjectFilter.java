@@ -68,7 +68,7 @@ public class ProjectFilter {
 
         if (currentDirection == null) {
             return Sort.by("name").ascending();
-        } else if(currentDirection.isAscending()) {
+        } else if (currentDirection.isAscending()) {
             return Sort.by("name").descending();
         } else {
             return Sort.unsorted();

@@ -1,7 +1,6 @@
 package wsb.bugtracker.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -54,12 +53,12 @@ public class PersonService {
         Optional<Person> person = personRepository.findByLogin(login);
 
         if (person.isPresent()) {
-            System.out.println("Użytkownik administracyjny już istnieje!");
+            System.out.println("The admin user already exists!");
             saveAllAuthorities(person.get());
             return;
         }
 
-        System.out.println("Tworzę użytkownika administracyjnego!");
+        System.out.println("I am creating an admin user!");
 
         Person newPerson = new Person();
         newPerson.setLogin(login);

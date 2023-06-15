@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.bugtracker.filters.IssueFilter;
+import wsb.bugtracker.mail.MailService;
 import wsb.bugtracker.models.Issue;
 import wsb.bugtracker.models.Person;
 import wsb.bugtracker.models.Project;
@@ -27,6 +28,7 @@ public class IssueController {
     private final IssueService issueService;
     private final ProjectService projectService;
     private final PersonService personService;
+    private final MailService mailService;
 
     @GetMapping
     @Secured("ROLE_VIEW_ISSUE")
@@ -74,6 +76,8 @@ public class IssueController {
         }
 
         issueService.save(issue);
+        mailService.sendNewIssueMail(issue);
+
         modelAndView.setViewName("redirect:/issues");
         return modelAndView;
     }
@@ -81,8 +85,12 @@ public class IssueController {
     @GetMapping("/delete/{id}")
     @Secured("ROLE_DELETE_ISSUE")
     ModelAndView delete(@PathVariable Long id) {
-        System.out.println("usuwanie zgłoszenia" + id);
+        Issue deletedIssue = issueService.findById(id);
+        mailService.sendDeleteIssueMail(deletedIssue);
+
+        System.out.println("deleting request" + id);
         issueService.delete(id);
+
         return new ModelAndView("redirect:/issues");
     }
 
@@ -128,6 +136,8 @@ public class IssueController {
 
 
         issueService.save(editIssue);
+        mailService.sendEditIssueMail(editIssue);
+
         modelAndView.setViewName("redirect:/issues");
         return modelAndView;
     }

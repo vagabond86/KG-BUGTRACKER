@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.bugtracker.filters.ProjectFilter;
+import wsb.bugtracker.mail.MailService;
 import wsb.bugtracker.models.Person;
 import wsb.bugtracker.models.Project;
 import wsb.bugtracker.services.PersonService;
@@ -24,6 +25,7 @@ public class ProjectController {
 
     private final ProjectService projectService;
     private final PersonService personService;
+    private final MailService mailService;
 
     @GetMapping
     @Secured("ROLE_VIEW_PROJECT")
@@ -63,8 +65,10 @@ public class ProjectController {
             modelAndView.addObject("people", personService.findAll());
             return modelAndView;
         }
-
         projectService.save(project);
+
+        mailService.sendNewProjectMail(project);
+
         modelAndView.setViewName("redirect:/projects");
         return modelAndView;
     }
@@ -72,8 +76,12 @@ public class ProjectController {
     @GetMapping("/delete/{id}")
     @Secured("ROLE_DELETE_PROJECT")
     ModelAndView delete(@PathVariable Long id) {
-        System.out.println("usuwanie projektu" + id);
+        Project deletedProject = projectService.findById(id);
+        mailService.sendDeleteProjectMail(deletedProject);
+
+        System.out.println("project removal" + id);
         projectService.delete(id);
+
         return new ModelAndView("redirect:/projects");
     }
 
@@ -110,6 +118,8 @@ public class ProjectController {
         editProject.setCreator(project.getCreator());
 
         projectService.save(editProject);
+        mailService.sendEditProjectMail(editProject);
+
         modelAndView.setViewName("redirect:/projects");
         return modelAndView;
     }

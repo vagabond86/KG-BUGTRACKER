@@ -26,6 +26,7 @@ public class LoginController {
         }
         return "redirect:/login?logout";
     }
+
     @GetMapping("/security/access-denied")
     public String showAccessDenied() {
         return "security/access-denied";

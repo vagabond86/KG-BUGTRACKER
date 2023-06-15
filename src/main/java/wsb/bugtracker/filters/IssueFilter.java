@@ -3,8 +3,8 @@ package wsb.bugtracker.filters;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import wsb.bugtracker.models.*;
 
 @Data

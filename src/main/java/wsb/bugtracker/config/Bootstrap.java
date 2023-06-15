@@ -20,7 +20,7 @@ public class Bootstrap implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("Rozpoczynamy!");
+        System.out.println("Let's begin!");
 
         saveMissingAuthorities();
 

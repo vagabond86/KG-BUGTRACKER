@@ -79,8 +79,10 @@
                     <div class="col-10">
                         <h5 class="card-title" th:text="${project.name}"></h5>
                         <small class="text-muted">
-                            <span th:text="#{common.createdBy}"></span>: <span th:text="${project.creator?.userRealName}"></span>,
-                            <span th:text="#{common.createdOn}"></span>: <span th:text="${#dates.format(project.dateCreated, 'dd-MM-yyyy')}"></span>
+                            <span th:text="#{common.createdBy}"></span>: <span
+                                th:text="${project.creator?.userRealName}"></span>,
+                            <span th:text="#{common.createdOn}"></span>: <span
+                                th:text="${#dates.format(project.dateCreated, 'dd-MM-yyyy')}"></span>
                         </small>
                     </div>
                     <div class="col-2">

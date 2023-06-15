@@ -3,35 +3,35 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-    <title>Kontakt</title>
+    <title th:text="#{common.contact}"></title>
 </head>
 
 <body>
 <section layout:fragment="custom-content">
 
-    <h3>Kontakt</h3>
+    <h3 th:text="#{common.contact}"></h3>
 
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="card-title">KG BUGTRACKER</h5>
-            <p class="card-text">Centralne miejsce dla zgłaszania, śledzenia i rozwiązywania błędów</p>
+            <p class="card-text" th:text="#{common.profile}"></p>
         </div>
     </div>
 
     <div class="card mt-4">
         <div class="card-body">
-            <h5 class="card-title">Odwiedź nas</h5>
-            <p class="card-text">ul. Łąkowa 123</p>
+            <h5 class="card-title">Visit us</h5>
+            <p class="card-text">Łąkowa Street 123</p>
             <p class="card-text">00-000 Gdańsk</p>
-            <p class="card-text">Polska</p>
+            <p class="card-text">Poland</p>
         </div>
     </div>
 
     <div class="card mt-4">
         <div class="card-body">
-            <h5 class="card-title">Skontaktuj się z nami</h5>
-            <p class="card-text">Telefon: +48 777 555 111</p>
-            <p class="card-text">Email: kontakt@KGBUGRTACKER.com</p>
+            <h5 class="card-title">Contact us</h5>
+            <p class="card-text">Mobile: +48 777 555 111</p>
+            <p class="card-text">Email: contact@KGBUGRTACKER.com</p>
         </div>
     </div>
 
