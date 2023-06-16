@@ -35,7 +35,7 @@ public class MailService {
     public void sendNewProjectMail(Project project) {
         Mail mail = new Mail();
         mail.setRecipient(project.getCreator().getEmail());
-        mail.setSubject("New project on KG BUGTRACKER");
+        mail.setSubject("New project / KG BUGTRACKER");
         mail.setContent("Confirmation of the creation of a new project: " + project.getName() + ", on " + project.getDateCreated());
 
         sendMail(mail);
@@ -44,7 +44,7 @@ public class MailService {
     public void sendEditProjectMail(Project project) {
         Mail mail = new Mail();
         mail.setRecipient(project.getCreator().getEmail());
-        mail.setSubject("Edited project on KG BUGTRACKER");
+        mail.setSubject("Your project has changed / KG BUGTRACKER");
         mail.setContent("Confirmation of project editing:" + project.getName());
 
         sendMail(mail);
@@ -53,7 +53,7 @@ public class MailService {
     public void sendDeleteProjectMail(Project project) {
         Mail mail = new Mail();
         mail.setRecipient(project.getCreator().getEmail());
-        mail.setSubject("Deleted project on KG BUGTRACKER");
+        mail.setSubject("Deleted project / KG BUGTRACKER");
         mail.setContent("Confirmation of the removal of the project from the system: " + project.getName());
 
         sendMail(mail);
@@ -61,20 +61,22 @@ public class MailService {
 
     public void sendNewIssueMail(Issue issue) {
         Mail mail = new Mail();
-        mail.setRecipient(issue.getCreator().getEmail());
-        mail.setSubject("New issue on KG BUGTRACKER");
-        mail.setContent("Confirmation of the creation of a new issue:\n\n" +
+        mail.setRecipient(issue.getAssignee().getEmail());
+        mail.setSubject("New issue / KG BUGTRACKER");
+        mail.setContent("You have received a new issue:\n\n" +
                 "Priority: " + issue.getPriority() + "\n" +
                 "Issue Name: " + issue.getName() + "\n" +
                 "Description: " + issue.getDescription() + "\n" +
-                "Type: " + issue.getType());
+                "Type: " + issue.getType() + "\n" +
+                "Creator: " + issue.getCreator().getUserRealName());
 
         sendMail(mail);
     }
 
     public void sendEditIssueMail(Issue issue) {
         Mail mail = new Mail();
-        mail.setRecipient(issue.getCreator().getEmail());
+        mail.setRecipient(issue.getAssignee().getEmail());
+        mail.setSubject("Your issue has changed / KG BUGTRACKER");
         mail.setContent("Confirmation of issue editing:\n\n" +
                 "Issue Name: " + issue.getName());
 
@@ -83,8 +85,8 @@ public class MailService {
 
     public void sendDeleteIssueMail(Issue issue) {
         Mail mail = new Mail();
-        mail.setRecipient(issue.getCreator().getEmail());
-        mail.setSubject("Deleted issue on KG BUGTRACKER");
+        mail.setRecipient(issue.getAssignee().getEmail());
+        mail.setSubject("Deleted issue / KG BUGTRACKER");
         mail.setContent("Confirmation of the removal of the issue from the system:\n\n" +
                 "Issue Name: " + issue.getName());
 

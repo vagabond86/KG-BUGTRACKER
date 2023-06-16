@@ -26,19 +26,13 @@ public class DashboardController {
     private final PersonRepository personRepository;
 
     @GetMapping("/dashboard")
-    public ModelAndView dashboard() {
+    public ModelAndView dashboard(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("dashboard");
+        String username = authentication.getName();
+        Person person = personRepository.findByLogin(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-
-        Optional<Person> person = personRepository.findByLogin(user.getUsername());
-        if (person.isPresent()) {
-            String userRealName = person.get().getUserRealName();
-            modelAndView.addObject("userRealName", userRealName);
-        }
-
-        modelAndView.addObject("principal", user);
+        modelAndView.addObject("userRealName", person.getUserRealName());
 
         List<Issue> issues = issueService.findAll();
         modelAndView.addObject("issue", issues);

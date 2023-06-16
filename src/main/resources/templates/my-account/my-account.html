@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+    <title th:text="#{my.account}"></title>
+</head>
+
+<body>
+<section layout:fragment="custom-content">
+
+    <h3 th:text="#{my.account}"></h3>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title" th:text="${userRealName}"></h5>
+                </div>
+                <div class="col-3">
+                    <p th:text="${login}"></p>
+                </div>
+                <div class="col-3">
+                    <p th:text="${email}"></p>
+                </div>
+                <div class="col-2 text-center">
+                    <div class="btn-group" role="group">
+                        <a href="/my-account/change-personal-data" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="/my-account/change-password" class="btn btn-primary">
+                            <i class="fas fa-key"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>
