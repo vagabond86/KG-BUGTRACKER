@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+    <title th:text="#{authority.list}"></title>
+</head>
+
+<body>
+<section layout:fragment="custom-content">
+
+    <h3>
+        <span th:text="${person.userRealName}"></span> /
+        <span th:text="#{authority.list}"></span>
+    </h3>
+
+    <form th:action="@{/people/{personId}/saveAuthorities(personId=${person.id})}" method="post">
+
+        <div th:each="authority : ${allAuthorities}" class="mt-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" th:value="${authority.name}" th:id="${authority.id}"
+                       th:name="authorities"
+                       th:checked="${person.authorities.contains(authority)}"/>
+                <label class="form-check-label" th:for="${authority.id}">
+                    <span th:text="${authority.name}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="btn-group mt-3" role="group" >
+
+                <a href="/people" class="btn btn-secondary mt-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span th:text="#{common.back}"></span>
+                </a>
+
+                <button type="submit" class="btn btn-primary mt-2">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span th:text="#{common.save}"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+</section>
+</body>
+</html>

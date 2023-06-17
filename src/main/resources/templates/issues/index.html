@@ -137,7 +137,14 @@
                             <span th:text="#{issues.priority}"></span>: <span th:text="${issue.getPriority()}"></span>
                         </small>
                     </div>
+
                     <div class="col-2">
+                            <i th:if="${issue.status == T(wsb.bugtracker.models.Status).TODO}"
+                               class="fa-solid fa-circle fa-xl" style="color: #ff0101;"></i>
+                            <i th:if="${issue.status == T(wsb.bugtracker.models.Status).IN_PROGRESS}"
+                               class="fa-solid fa-circle fa-xl" style="color: #eab010;"></i>
+                            <i th:if="${issue.status == T(wsb.bugtracker.models.Status).DONE}"
+                               class="fa-solid fa-circle fa-xl" style="color: #279f05;"></i>
                         <div class="btn-group" role="group">
                             <a th:href="@{/issues/edit/{id}(id=${issue.getId()})}"
                                class="btn btn-primary">

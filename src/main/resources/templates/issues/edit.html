@@ -3,14 +3,14 @@
       layout:decorate="~{main-layout/main-layout}">
 
 <head>
-    <title th:text="#{issues.create}"></title>
+    <title th:text="#{issues.edit}"></title>
 </head>
 <body>
 <section layout:fragment="custom-content">
 
-    <h3 th:text="#{issues.create}"></h3>
+    <h3 th:text="#{issues.edit}"></h3>
 
-    <form th:action="@{/issues/save}" th:object="${issue}" method="post">
+    <form th:action="@{/issues/update/{id}(id=${issue.id})}" th:object="${issue}" method="post">
         <div class="container">
 
             <div class="form-group mt-2">

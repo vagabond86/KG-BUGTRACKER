@@ -35,12 +35,12 @@
                     </div>
                     <div class="col-2 text-center">
                         <div class="btn-group" role="group">
-                            <a th:href="@{/people/{id}/authorityList(id=${person.getId()})}"
+                            <a th:href="@{/people/{id}/editAuthorities(id=${person.getId()})}"
                                class="btn btn-light"><i class="fa-solid fa-lock"></i></a>
                             <a th:href="@{/people/edit/{id}(id=${person.getId()})}"
                                class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a th:href="@{/people/delete/{id}(id=${person.getId()})}"
-                               class="btn btn-danger"><i class="fa-solid fa-trash"></i></i></a>
+                               class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>
                 </div>

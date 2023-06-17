@@ -10,8 +10,9 @@ import wsb.bugtracker.models.Person;
 import wsb.bugtracker.repositories.AuthorityRepository;
 import wsb.bugtracker.services.PersonService;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,58 +22,29 @@ public class AuthorityController {
     private final PersonService personService;
     private final AuthorityRepository authorityRepository;
 
-    @GetMapping("/{id}/authorityList")
-    public ModelAndView creatorAuthorityList(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("/authority/creator-authority-list");
+    @GetMapping("/{id}/editAuthorities")
+    public ModelAndView editAuthorities(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/authority/edit-authorities");
         List<Authority> authorities = authorityRepository.findAll();
-        modelAndView.addObject("authorities", authorities);
+        modelAndView.addObject("allAuthorities", authorities);
 
         Person person = personService.findById(id);
         modelAndView.addObject("person", person);
         return modelAndView;
     }
 
-    @PostMapping("/{id}/addAuthority")
-    public ModelAndView addAuthority(@PathVariable Long id, @RequestParam String authorityName) {
-        ModelAndView modelAndView = new ModelAndView();
+    @PostMapping("/{id}/saveAuthorities")
+    public String saveAuthorities(@PathVariable Long id, @RequestParam(value = "authorities", required = false) List<AuthorityName> authorityNames) {
         Person person = personService.findById(id);
-
-        if (person == null) {
-            modelAndView.setViewName("redirect:/people");
-            return modelAndView;
+        Set<Authority> selectedAuthorities = new HashSet<>();
+        if (authorityNames != null) {
+            for (AuthorityName authorityName : authorityNames) {
+                Authority authority = authorityRepository.findByName(authorityName).orElseThrow(() -> new RuntimeException("Authority not found: " + authorityName));
+                selectedAuthorities.add(authority);
+            }
         }
-
-        Optional<Authority> authorityOptional = authorityRepository.findByName(AuthorityName.valueOf(authorityName));
-        if (authorityOptional.isEmpty()) {
-            Authority authority = new Authority();
-            authority.setName(AuthorityName.valueOf(authorityName));
-            authorityRepository.save(authority);
-            person.getAuthorities().add(authority);
-            personService.save(person);
-        }
-
-        modelAndView.setViewName("redirect:/people");
-        return modelAndView;
-    }
-
-    @PostMapping("/{personId}/delete/{authorityId}")
-    public ModelAndView deleteAuthority(@PathVariable Long personId, @PathVariable Long authorityId) {
-        ModelAndView modelAndView = new ModelAndView();
-        Person person = personService.findById(personId);
-        Optional<Authority> authorityOptional = authorityRepository.findById(authorityId);
-
-        if (person == null || authorityOptional.isEmpty()) {
-            modelAndView.setViewName("redirect:/people");
-            return modelAndView;
-        }
-
-        Authority authority = authorityOptional.get();
-        person.getAuthorities().remove(authority);
+        person.setAuthorities(selectedAuthorities);
         personService.save(person);
-
-        authorityRepository.delete(authority);
-
-        modelAndView.setViewName("redirect:/people");
-        return modelAndView;
+        return "redirect:/people";
     }
 }
