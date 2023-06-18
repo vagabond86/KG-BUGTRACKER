@@ -72,42 +72,48 @@
             </div>
 
             <div class="form-group mt-2">
-                <label for="issue-status">
+                <label>
                     <a th:text="#{issues.status}"></a>
                 </label>
-
-                <select id="issue-status" class="form-control" th:field="*{status}">
-                    <option th:each="s : ${T(wsb.bugtracker.models.Status).values()}"
-                            th:value="${s}"
-                            th:text="${s}"
-                    ></option>
-                </select>
+                <div th:each="s : ${T(wsb.bugtracker.models.Status).values()}">
+                    <input type="radio"
+                           th:field="*{status}"
+                           th:value="${s}"
+                           th:id="'status-' + ${s}"/>
+                    <label th:for="'status-' + ${s}"
+                           th:text="${s}">
+                    </label>
+                </div>
             </div>
 
             <div class="form-group mt-2">
-                <label for="issue-priority">
+                <label>
                     <a th:text="#{issues.priority}"></a>
                 </label>
-
-                <select id="issue-priority" class="form-control" th:field="*{priority}">
-                    <option th:each="p : ${T(wsb.bugtracker.models.Priority).values()}"
-                            th:value="${p}"
-                            th:text="${p}"
-                    ></option>
-                </select>
+                <div th:each="p : ${T(wsb.bugtracker.models.Priority).values()}">
+                    <input type="radio"
+                           th:field="*{priority}"
+                           th:value="${p}"
+                           th:id="'priority-' + ${p}"/>
+                    <label th:for="'priority-' + ${p}"
+                           th:text="${p}">
+                    </label>
+                </div>
             </div>
 
             <div class="form-group mt-2">
-                <label for="issue-type">
+                <label>
                     <a th:text="#{issues.type}"></a>
                 </label>
-
-                <select id="issue-type" class="form-control" th:field="*{type}">
-                    <option th:each="t : ${T(wsb.bugtracker.models.Type).values()}"
-                            th:value="${t}"
-                            th:text="${t}"
-                    ></option>
-                </select>
+                <div th:each="t : ${T(wsb.bugtracker.models.Type).values()}">
+                    <input type="radio"
+                           th:field="*{type}"
+                           th:value="${t}"
+                           th:id="'type-' + ${t}"/>
+                    <label th:for="'type-' + ${t}"
+                           th:text="${t}">
+                    </label>
+                </div>
             </div>
 
             <div class="form-group mt-2">
@@ -122,10 +128,10 @@
                     ></option>
                 </select>
             </div>
-
         </div>
+
         <div class="col">
-            <div class="btn-group mt-3" role="group">
+            <div class="mt-3" role="group">
 
                 <a href="/issues" class="btn btn-secondary mt-2">
                     <i class="fa-solid fa-arrow-left"></i>

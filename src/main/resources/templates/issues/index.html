@@ -30,7 +30,7 @@
                             th:text="#{projects.name}"
                     ></option>
 
-                    <option th:each="project : ${project}"
+                    <option th:each="project : ${projects}"
                             th:value="${project.getId()}"
                             th:text="${project.getName()}"
                     ></option>

@@ -40,6 +40,10 @@ public class IssueController {
 
         List<Person> people = personService.findAll();
         modelAndView.addObject("people", people);
+
+        List<Project> projects = projectService.findAll();
+        modelAndView.addObject("projects", projects);
+
         modelAndView.addObject("filter", filter);
 
         return modelAndView;

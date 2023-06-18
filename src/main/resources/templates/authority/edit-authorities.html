@@ -17,7 +17,7 @@
     <form th:action="@{/people/{personId}/saveAuthorities(personId=${person.id})}" method="post">
 
         <div th:each="authority : ${allAuthorities}" class="mt-2">
-            <div class="form-check">
+            <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" th:value="${authority.name}" th:id="${authority.id}"
                        th:name="authorities"
                        th:checked="${person.authorities.contains(authority)}"/>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col">
-            <div class="btn-group mt-3" role="group" >
+            <div class="mt-3" role="group" >
 
                 <a href="/people" class="btn btn-secondary mt-2">
                     <i class="fa-solid fa-arrow-left"></i>
