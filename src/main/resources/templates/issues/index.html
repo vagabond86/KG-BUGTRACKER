@@ -24,6 +24,22 @@
 
         <div class="col-2">
             <label>
+                <select th:field="*{project}"
+                        class="form-control">
+                    <option th:value="${null}"
+                            th:text="#{projects.name}"
+                    ></option>
+
+                    <option th:each="project : ${project}"
+                            th:value="${project.getId()}"
+                            th:text="${project.getName()}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-2">
+            <label>
                 <select th:field="*{creator}"
                         class="form-control">
                     <option th:value="${null}"
@@ -37,6 +53,7 @@
                 </select>
             </label>
         </div>
+
         <div class="col-2">
             <label>
                 <select th:field="*{assignee}"
@@ -86,8 +103,7 @@
             </label>
         </div>
 
-
-        <div class="col-3">
+        <div class="col-1">
             <label>
                 <input th:field="*{globalSearch}"
                        class="form-control"
@@ -139,12 +155,21 @@
                     </div>
 
                     <div class="col-2">
-                            <i th:if="${issue.status == T(wsb.bugtracker.models.Status).TODO}"
-                               class="fa-solid fa-circle fa-xl" style="color: #ff0101;"></i>
-                            <i th:if="${issue.status == T(wsb.bugtracker.models.Status).IN_PROGRESS}"
-                               class="fa-solid fa-circle fa-xl" style="color: #eab010;"></i>
-                            <i th:if="${issue.status == T(wsb.bugtracker.models.Status).DONE}"
-                               class="fa-solid fa-circle fa-xl" style="color: #279f05;"></i>
+
+                        <i th:if="${issue.priority == T(wsb.bugtracker.models.Priority).MINOR}"
+                           class="fa-solid fa-arrow-down"></i>
+                        <i th:if="${issue.priority == T(wsb.bugtracker.models.Priority).NORMAL}"
+                           class="fa-solid fa-arrow-right"></i>
+                        <i th:if="${issue.priority == T(wsb.bugtracker.models.Priority).MAJOR}"
+                           class="fa-solid fa-arrow-up"></i>
+
+                        <i th:if="${issue.status == T(wsb.bugtracker.models.Status).TODO}"
+                           class="fa-solid fa-circle fa-xl" style="color: #ff0101;"></i>
+                        <i th:if="${issue.status == T(wsb.bugtracker.models.Status).IN_PROGRESS}"
+                           class="fa-solid fa-circle fa-xl" style="color: #eab010;"></i>
+                        <i th:if="${issue.status == T(wsb.bugtracker.models.Status).DONE}"
+                           class="fa-solid fa-circle fa-xl" style="color: #279f05;"></i>
+
                         <div class="btn-group" role="group">
                             <a th:href="@{/issues/edit/{id}(id=${issue.getId()})}"
                                class="btn btn-primary">

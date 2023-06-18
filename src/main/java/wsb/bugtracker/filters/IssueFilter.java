@@ -48,6 +48,7 @@ public class IssueFilter {
                 "&sort=" + toSortString(sort) +
                 (name != null ? "&name=" + name : "") +
                 (creator != null ? "&creator=" + creator.getId() : "") +
+                (project != null ? "&project=" + project.getId() : "") +
                 (globalSearch != null ? "&globalSearch=" + globalSearch : "");
     }
 
