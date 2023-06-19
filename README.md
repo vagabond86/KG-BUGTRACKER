@@ -1,8 +1,8 @@
-# WSB Bug Tracker
+# KG BUGTRACKER
 
 # Wstęp
 Projekt jest demonstracyjną wersją bug tracker'a stworzonego jako praca dyplomowa na studiach podyplomowych WSB Merito.
-Aplikacja pozwala na zgłaszanie i zarządzanie zadaniami oraz błędami napotkanymi w oprogramowaniu.
+Aplikacja pozwala na zgłaszanie i zarządzanie zadaniami oraz błędami w procesie realizacji projektów.
 
 # Technologie
 - Java
@@ -12,13 +12,14 @@ Aplikacja pozwala na zgłaszanie i zarządzanie zadaniami oraz błędami napotka
 - Thymeleaf
 - DevTools
 - Lombok
-- Spring Configuration Processor
+- Spring Boot Sequrity
+- Bootstpar
 
 # Funkcje
 Aplikacja pozwala na:
 
-- Wyświetlenie listy projektów, dodawanie/edycja/usuwanie
-- Dodawanie/edycja/usuwanie zgłoszeń
+- Wyświetlenie listy projektów, dodawanie/edycja/usuwanie zadań
+- Wyświetlanie listy zgłoszeń, dodawanie/edycja/usuwanie zgłoszeń
 - Wyświetlanie listy zgłoszeń z możliwością filtrowania po projekcie, stanie i wykonawcy
 - Walidację formularzy
 - Logowanie i zarządzanie kontem użytkownika
@@ -30,8 +31,8 @@ Aplikacja pozwala na:
 Do korzystania z aplikacji potrzebujesz:
 
 - Sklonować repozytorium na swój komputer.
-- Zainstalować i skonfigurować PostgreSQL.
 - Otworzyć projekt np. w IntelliJIDEA.
+- Skonfigurować PostgreSQL.
 - Uruchomić aplikację.
 
 # Dokumentacja
