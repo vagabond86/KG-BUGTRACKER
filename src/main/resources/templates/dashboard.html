@@ -11,6 +11,70 @@
 
     <h3 th:text="#{common.welcome}+' '+ ${userRealName} + '!'"></h3>
 
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h5 th:text="#{projects.yourProjects}"></h5>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{common.name}"></th>
+                        <th th:text="#{common.description}"></th>
+                        <th th:text="#{common.actions}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(project)}">
+                        <td colspan="3" class="text-center" th:text="#{common.empty}"></td>
+                    </tr>
+                    <tr th:each="project : ${project}">
+                        <td th:text="${project.name}"></td>
+                        <td th:text="${project.description}"></td>
+                        <td>
+                            <a th:href="@{/projects/edit/{id}(id=${project.id})}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h5 th:text="#{issues.yourIssues}"></h5>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{common.name}"></th>
+                        <th th:text="#{common.description}"></th>
+                        <th th:text="#{common.actions}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(issue)}">
+                        <td colspan="3" class="text-center" th:text="#{common.empty}"></td>
+                    </tr>
+                    <tr th:each="issue : ${issue}">
+                        <td th:text="${issue.name}"></td>
+                        <td th:text="${issue.description}"></td>
+                        <td>
+                            <a th:href="@{/issues/edit/{id}(id=${issue.id})}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </section>
 </body>
 </html>

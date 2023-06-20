@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import wsb.bugtracker.models.Issue;
+import wsb.bugtracker.models.Person;
 import wsb.bugtracker.repositories.IssueRepository;
 
 import java.util.Date;
@@ -39,5 +40,9 @@ public class IssueService {
 
     public List<Issue> findAll() {
         return issueRepository.findAll();
+    }
+
+    public List<Issue> findByAssignee(Person assignee) {
+        return issueRepository.findByAssignee(assignee);
     }
 }

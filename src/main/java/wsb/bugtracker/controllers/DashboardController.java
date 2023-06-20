@@ -31,10 +31,10 @@ public class DashboardController {
 
         modelAndView.addObject("userRealName", person.getUserRealName());
 
-        List<Issue> issues = issueService.findAll();
+        List<Issue> issues = issueService.findByAssignee(person);
         modelAndView.addObject("issue", issues);
 
-        List<Project> projects = projectService.findAll();
+        List<Project> projects = projectService.findByCreator(person);
         modelAndView.addObject("project", projects);
 
         return modelAndView;

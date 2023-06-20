@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import wsb.bugtracker.models.Person;
 import wsb.bugtracker.models.Project;
 import wsb.bugtracker.repositories.ProjectRepository;
 
@@ -38,5 +39,9 @@ public class ProjectService {
 
     public Project findById(Long id) {
         return projectRepository.findById(id).orElse(null);
+    }
+
+    public List<Project> findByCreator(Person creator) {
+        return projectRepository.findByCreator(creator);
     }
 }
