@@ -37,6 +37,4 @@ public class Person {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities;
-
-
 }

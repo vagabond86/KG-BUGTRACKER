@@ -40,5 +40,4 @@ public class IssueService {
     public List<Issue> findAll() {
         return issueRepository.findAll();
     }
-
 }

@@ -73,7 +73,5 @@ public class ProjectFilter {
         } else {
             return Sort.unsorted();
         }
-
     }
-
 }

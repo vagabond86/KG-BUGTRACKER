@@ -92,5 +92,4 @@ public class MailService {
 
         sendMail(mail);
     }
-
 }

@@ -81,7 +81,5 @@ public class PersonService {
         person.setAuthorities(authoritySet);
 
         personRepository.save(person);
-
-
     }
 }

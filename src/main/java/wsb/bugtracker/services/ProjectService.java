@@ -40,5 +40,3 @@ public class ProjectService {
         return projectRepository.findById(id).orElse(null);
     }
 }
-
-
