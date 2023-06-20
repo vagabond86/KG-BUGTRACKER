@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import wsb.bugtracker.models.Person;
-import wsb.bugtracker.repositories.AuthorityRepository;
 import wsb.bugtracker.repositories.PersonRepository;
 import wsb.bugtracker.services.PersonService;
 
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 public class PersonServiceTest {
@@ -78,7 +78,7 @@ public class PersonServiceTest {
         Person result = personService.findById(personId);
 
         // Assert
-        assertEquals(null, result);
+        assertNull(result);
         verify(personRepository, times(1)).findById(personId);
     }
 

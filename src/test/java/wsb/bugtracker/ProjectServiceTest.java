@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ProjectServiceTest {
@@ -76,7 +76,7 @@ public class ProjectServiceTest {
         Project result = projectService.findById(projectId);
 
         // Assert
-        assertEquals(null, result);
+        assertNull(result);
         verify(projectRepository, times(1)).findById(projectId);
     }
 
@@ -91,8 +91,8 @@ public class ProjectServiceTest {
         projectService.save(project);
 
         // Assert
-        assertEquals(true, project.getEnabled());
-        assertEquals(true, project.getDateCreated() != null);
+        assertTrue(project.getEnabled());
+        assertNotNull(project.getDateCreated());
         verify(projectRepository, times(1)).save(project);
     }
 
