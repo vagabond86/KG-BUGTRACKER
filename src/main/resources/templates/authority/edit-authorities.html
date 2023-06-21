@@ -14,7 +14,7 @@
         <span th:text="#{authority.list}"></span>
     </h3>
 
-    <form th:action="@{/people/{personId}/saveAuthorities(personId=${person.id})}" method="post">
+    <form th:action="@{/people/{personId}/saveAuthorities(personId=${person.id})}" method="post" class="mt-4">
 
         <div th:each="authority : ${allAuthorities}" class="mt-2">
             <div class="form-check form-switch">
