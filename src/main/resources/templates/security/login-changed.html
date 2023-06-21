@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+    <title>Login Changed</title>
+</head>
+
+<body>
+<section layout:fragment="custom-content">
+    <div class="container">
+        <h1>Your login has been changed</h1>
+        <p>Please log in again with your new login.</p>
+        <a href="/login" class="btn btn-secondary mt-2">
+            <i class="fa-solid fa-arrow-left"></i>
+            Go to Login
+        </a>
+    </div>
+</section>
+</body>
+</html>
