@@ -16,7 +16,7 @@
             <h3 th:text="#{mail.new-message}"></h3>
 
             <div class="container">
-                <form method="post" action="/mail" enctype="multipart/form-data">
+                <form th:action="@{/mail}" enctype="multipart/form-data" method="post">
 
                     <div class="row form-group mt-2">
                         <label for="recipient" class="col-sm-3 col-form-label" th:text="#{mail.to}">:</label>
@@ -42,7 +42,7 @@
                     <div class="row form-group mt-2">
                         <label for="content" class="col-sm-3 col-form-label" th:text="#{mail.attachment}">:</label>
                         <div class="col-sm-9">
-                            <input type="file" id="attachment" name="attachment" class="form-control" required>
+                            <input type="file" id="attachment" name="attachment" class="form-control">
                         </div>
                     </div>
 
