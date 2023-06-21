@@ -20,10 +20,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests()
-                .requestMatchers("/contact", "/security/access-denied").permitAll()
+                .requestMatchers("/contact", "/security/access-denied")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true)
+                .permitAll()
                 .and()
                 .logout().logoutUrl("/logout")
                 .invalidateHttpSession(true)
