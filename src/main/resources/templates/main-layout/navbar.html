@@ -9,52 +9,52 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
 
-                    <li class="nav-item">
+                    <li class="nav-item" th:unless="${loggedIn}">
                         <a class="nav-link" href="/dashboard">
                             <i class="fa-solid fa-gauge"></i>
                             <span th:text="#{common.dashboard}"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item"th:unless="${loggedIn}">
                         <a class="nav-link" href="/projects">
                             <i class="fa-solid fa-list"></i>
                             <span th:text="#{projects.index}"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item"th:unless="${loggedIn}">
                         <a class="nav-link" href="/issues">
                             <i class="fa-solid fa-list-check"></i>
                             <span th:text="#{issues.index}"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item"th:unless="${loggedIn}">
                         <a class="nav-link" href="/people">
                             <i class="fa-solid fa-users me-1"></i>
                             <span th:text="#{people.index}"></span>
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item"th:unless="${loggedIn}">
                         <a class="nav-link" href="/mail">
                             <i class="fa-solid fa-envelope me-1"></i>
                             <span th:text="#{mail.messenger}"></span>
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${loggedIn}">
                         <a class="nav-link" href="/contact">
                             <i class="fa-solid fa-mobile-screen-button"></i>
                             <span th:text="#{common.contact}"></span>
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item"th:unless="${loggedIn}">
                         <button type="button" class="btn btn-primary">
                             <a th:href="@{/my-account}" class="text-white">
                                 <i class="fa-solid fa-user"></i>
                         </button>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item"th:unless="${loggedIn}">
                         <button type="button" class="btn btn-danger">
                             <a th:href="@{/logout}" class="text-white">
                                 <i class="fa-solid fa-right-from-bracket"></i>
