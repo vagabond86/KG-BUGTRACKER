@@ -2,6 +2,7 @@ package wsb.bugtracker.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,9 +35,15 @@ public class PersonController {
     @GetMapping("/delete/{id}")
     @Secured("ROLE_DELETE_USER")
     ModelAndView delete(@PathVariable Long id) {
-        System.out.println("usuwanie użytkownika" + id);
-        personService.delete(id);
-        return new ModelAndView("redirect:/people");
+        ModelAndView modelAndView;
+        try {
+            System.out.println("usuwanie użytkownika" + id);
+            personService.delete(id);
+            modelAndView = new ModelAndView("redirect:/people");
+        } catch (DataIntegrityViolationException e) {
+            modelAndView = new ModelAndView("security/error");
+        }
+        return modelAndView;
     }
 
     @GetMapping("/create")
