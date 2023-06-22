@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main-layout/main-layout}">
+
+<head>
+  <title th:text="#{error.title}"></title>
+</head>
+
+<body>
+<section layout:fragment="custom-content">
+  <div class="container">
+    <h1 th:text="#{error.title}"></h1>
+    <p th:text="#{error.message}"></p>
+    <a href="javascript:history.back()" class="btn btn-secondary mt-2">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span th:text="#{common.back}"></span>
+    </a>
+  </div>
+</section>
+</body>
+</html>

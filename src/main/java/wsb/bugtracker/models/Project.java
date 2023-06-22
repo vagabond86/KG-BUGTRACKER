@@ -16,7 +16,6 @@ public class Project {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @NotNull
     @NotEmpty
     @Size(min = 3, max = 100)
     private String name;
@@ -28,7 +27,6 @@ public class Project {
     private Date dateCreated;
 
     @Column(columnDefinition = "TEXT")
-    @NotNull
     @NotEmpty
     @Size(min = 10, max = 1000)
     private String description;

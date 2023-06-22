@@ -1,9 +1,7 @@
 package wsb.bugtracker.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.util.Set;
@@ -16,20 +14,20 @@ public class Person {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @NotBlank
+    @NotEmpty
     private String login;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotEmpty
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*\\W)[A-Za-z\\d\\W]{8,}$")
     private String password;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotEmpty
     private String userRealName;
 
     @Email
-    @NotBlank
+    @NotEmpty
     private String email;
 
     @ManyToMany

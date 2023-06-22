@@ -2,6 +2,7 @@ package wsb.bugtracker.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.annotation.Secured;
@@ -76,13 +77,18 @@ public class ProjectController {
     @GetMapping("/delete/{id}")
     @Secured("ROLE_DELETE_PROJECT")
     ModelAndView delete(@PathVariable Long id) {
-        Project deletedProject = projectService.findById(id);
-        mailService.sendDeleteProjectMail(deletedProject);
+        ModelAndView modelAndView;
+        try {
+            Project deletedProject = projectService.findById(id);
+            mailService.sendDeleteProjectMail(deletedProject);
 
-        System.out.println("project removal" + id);
-        projectService.delete(id);
-
-        return new ModelAndView("redirect:/projects");
+            System.out.println("project removal" + id);
+            projectService.delete(id);
+            modelAndView = new ModelAndView("redirect:/projects");
+        } catch (DataIntegrityViolationException e) {
+            modelAndView = new ModelAndView("security/error");
+        }
+        return modelAndView;
     }
 
     @GetMapping("/edit/{id}")
