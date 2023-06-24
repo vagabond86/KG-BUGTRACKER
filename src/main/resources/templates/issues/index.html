@@ -164,11 +164,11 @@
                            class="fa-solid fa-arrow-up"></i>
 
                         <i th:if="${issue.status == T(wsb.bugtracker.models.Status).TODO}"
-                           class="fa-solid fa-circle fa-xl" style="color: #ff0101;"></i>
+                           class="fa-solid fa-circle fa-xl" style="color: #279f05;"></i>
                         <i th:if="${issue.status == T(wsb.bugtracker.models.Status).IN_PROGRESS}"
                            class="fa-solid fa-circle fa-xl" style="color: #eab010;"></i>
                         <i th:if="${issue.status == T(wsb.bugtracker.models.Status).DONE}"
-                           class="fa-solid fa-circle fa-xl" style="color: #279f05;"></i>
+                           class="fa-solid fa-circle fa-xl" style="color: #0a13c7;"></i>
 
                         <div class="btn-group" role="group">
                             <a th:href="@{/issues/edit/{id}(id=${issue.getId()})}"
